@@ -41,10 +41,10 @@ void get_firmware_file(EmuEnvState &emuenv) {
         { SCE_SYSTEM_PARAM_LANG_CHINESE_T, "zh-hant-hk" },
         { SCE_SYSTEM_PARAM_LANG_CHINESE_S, "zh-hans-cn" },
         { SCE_SYSTEM_PARAM_LANG_FINNISH, "fi-fi" },
-        { SCE_SYSTEM_PARAM_LANG_SWEDISH, "sv-sv" },
+        { SCE_SYSTEM_PARAM_LANG_SWEDISH, "sv-se" },
         { SCE_SYSTEM_PARAM_LANG_DANISH, "da-dk" },
         { SCE_SYSTEM_PARAM_LANG_NORWEGIAN, "no-no" },
-        { SCE_SYSTEM_PARAM_LANG_POLISH, "pl-PL" },
+        { SCE_SYSTEM_PARAM_LANG_POLISH, "pl-pl" },
         { SCE_SYSTEM_PARAM_LANG_PORTUGUESE_BR, "pt-br" },
         { SCE_SYSTEM_PARAM_LANG_ENGLISH_GB, "en-gb" },
         { SCE_SYSTEM_PARAM_LANG_TURKISH, "tr-tr" },
@@ -77,6 +77,7 @@ void draw_initial_setup(GuiState &gui, EmuEnvState &emuenv) {
 
     auto &lang = gui.lang.initial_setup;
     auto &common = emuenv.common_dialog.lang.common;
+    auto &welcome = gui.lang.welcome;
 
     const auto is_default_path = emuenv.cfg.pref_path == emuenv.default_path;
     const auto FW_PREINST_PATH{ emuenv.pref_path / "pd0" };
@@ -178,12 +179,12 @@ void draw_initial_setup(GuiState &gui, EmuEnvState &emuenv) {
         ImGui::SetCursorPosY((WINDOW_SIZE.y / 2.f) - (ImGui::GetFontSize() * 3.5f));
         TextColoredCentered(GUI_COLOR_TEXT_TITLE, lang["install_highly_recommended"].c_str());
         ImGui::Spacing();
-        if (ImGui::Button("Download Preinst Firmware", BIG_BUTTON_SIZE))
+        if (ImGui::Button(welcome["download_preinst_firmware"].c_str(), BIG_BUTTON_SIZE))
             open_path("https://bit.ly/4hlePsX");
         ImGui::SameLine(0, 20.f * SCALE.x);
         ImGui::Text("%s %s", lang["installed"].c_str(), FW_PREINST_INSTALLED ? "V" : "X");
         ImGui::Spacing();
-        if (ImGui::Button(lang["download_firmware"].c_str(), BIG_BUTTON_SIZE))
+        if (ImGui::Button(welcome["download_firmware"].c_str(), BIG_BUTTON_SIZE))
             get_firmware_file(emuenv);
         ImGui::SameLine(0, 20.f * SCALE.x);
         ImGui::Text("%s %s", lang["installed"].c_str(), FW_INSTALLED ? "V" : "X");

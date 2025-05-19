@@ -20,6 +20,7 @@
 #include <config/state.h>
 #include <emuenv/state.h>
 #include <kernel/state.h>
+#include <util/vector_utils.h>
 
 static SysmodulePaths init_sysmodule_paths() {
     SysmodulePaths p;
@@ -179,7 +180,7 @@ bool is_lle_module(SceSysmoduleModuleId module_id, EmuEnvState &emuenv) {
     return false;
 }
 
-std::vector<std::string> init_auto_lle_module_names() {
+static std::vector<std::string> init_auto_lle_module_names() {
     std::vector<std::string> auto_lle_module_names = { "libc", "libSceFt2", "libpvf" };
     for (const auto module_id : auto_lle_modules) {
         for (const auto module : sysmodule_paths[module_id]) {
